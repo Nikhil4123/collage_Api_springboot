@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head>
+  <title>Course-Application</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/course-app/css/bootstrap.min.css">
+  <script src="/course-app/js/jquery.min.js"></script>
+  <script src="/course-app/js/bootstrap.min.js"></script>
+  <script src="/course-app/js/home.js"></script>
+  <script src="/course-app/js/university.js"></script>
+  <script src="/course-app/js/course.js"></script>
+  <script src="/course-app/js/student.js"></script>
+  <link rel = "stylesheet" type = "text/css" href = "/course-app/css/home.css" />
+</head>
+<body>
+<h2>University, Courses and Student</h2>
+
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close" onclick="addPlaceHolder()" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Edit University Detail</h4>
+      </div>
+         <div class="modal-body">
+         <input  id="univerSityId" type="hidden">
+        <div class="form-group">
+        	<input class="form-control " id="name" type="text" placeholder="Name">
+        </div>
+        <div class="form-group">
+        	<input class="form-control " id="alphaCode" type="text" placeholder="Alpha Two Code">
+        </div>
+        <div class="form-group">
+        	<input class="form-control" id="country" type="text" placeholder="Country">
+        </div>
+        <div class="form-group">
+        	<input class="form-control" id="domain" type="text" placeholder="Domain">
+        </div>
+        <div class="form-group">
+        	<input class="form-control" id="webPage" type="text" placeholder="Web Page">
+        </div>
+      </div>
+          <div class="modal-footer ">
+        <button type="button" onclick="updateUniversityData()" data-dismiss="modal" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Update</button>
+      </div>
+        </div>
+    <!-- /.modal-content --> 
+  </div>
+      <!-- /.modal-dialog --> 
+  </div>   
+
+
+<div class="modal fade" id="editCourse" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close" onclick="addCoursePlaceHolder()" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Edit Course Detail</h4>
+      </div>
+        <div class="modal-body">
+         <input  id="courseId" type="hidden">
+        <div class="form-group">
+        	<input class="form-control " id="courseName" type="text" placeholder="Name">
+        </div>
+        <div class="form-group">
+        <select class="form-control" id="selectUniversity">
+		    <option>1</option>
+		    <option>2</option>
+		    <option>3</option>
+		    <option>4</option>
+  		</select>
+  		</div>
+      </div>
+          <div class="modal-footer ">
+        <button type="button" onclick="updateCourseData()" data-dismiss="modal" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Update</button>
+      </div>
+        </div>
+    <!-- /.modal-content --> 
+  </div>
+      <!-- /.modal-dialog --> 
+  </div>   
+
+
+<div class="modal fade" id="studentCourse" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close" onclick="addStudentPlaceHolder()" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Edit Student Detail</h4>
+      </div>
+        <div class="modal-body">
+         <input  id="studentId" type="hidden">
+        <div class="form-group">
+        	<input class="form-control " id="studentName" type="text" placeholder="Name">
+        </div>
+        <div class="form-group">
+        	<input class="form-control " id="studentAddress" type="text" placeholder="Address">
+        </div>
+        <div class="form-group">
+        	<input class="form-control " id="studentCity" type="text" placeholder="City">
+        </div>
+        <div class="form-group">
+        <select onchange="getCourses()" class="form-control" id="selectSUniversity">
+		    <option>1</option>
+		    <option>2</option>
+		    <option>3</option>
+		    <option>4</option>
+  		</select>
+  		</div>
+  		<div class="form-group">
+  		<select class="form-control" id="selectSCourse">
+		    <option>Select Course</option>
+		    <option>2</option>
+		    <option>3</option>
+		    <option>4</option>
+  		</select>
+  		</div>
+      </div>
+          <div class="modal-footer ">
+        <button type="button" onclick="updateStudentData()" data-dismiss="modal" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Update</button>
+      </div>
+        </div>
+    <!-- /.modal-content --> 
+  </div>
+      <!-- /.modal-dialog --> 
+  </div>   
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'university')" id="defaultOpen">University</button>
+  <button class="tablinks" onclick="openCity(event, 'course')">Course</button>
+  <button class="tablinks" onclick="openCity(event, 'student')">Student</button>
+</div>
+
+<div id="university" class="tabcontent table-responsive container">
+  <span><h3>Universities</h3><p data-placement="top" data-toggle="tooltip" title="add"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-plus"></span>Add</button></p></span>
+  <table id ="universityTable" class="table table-bordred table-striped"">
+    <thead>
+      <tr>
+        <th style='display:none;'>Id</th>
+        <th>Name</th>
+        <th>Alpha Code</th>
+        <th>Country</th>
+        <th>Domain</th>
+        <th>Web Page</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Course</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+<div id="course" class="tabcontent table-responsive container">
+  <h3>Course</h3>
+  <p data-placement="top" onClick="addCourse()" data-toggle="tooltip" title="add"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#editCourse"><span class="glyphicon glyphicon-plus"></span>Add</button></p></span>
+  <table id ="courseTable" class="table table-bordred table-striped"">
+    <thead>
+      <tr>
+      	<th style='display:none;'>Id</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Universities</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+
+<div id="student" class="tabcontent table-responsive container" >
+  <h3>Student</h3>
+  <p data-placement="top" onClick="addStudent()" data-toggle="tooltip" title="add"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#studentCourse"><span class="glyphicon glyphicon-plus"></span>Add</button></p></span>
+  <table id ="studentTable" class="table table-bordred table-striped"">
+    <thead>
+      <tr>
+        <th style='display:none;'>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>University</th>
+        <th>Course</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Deleted this entry</h4>
+      </div>
+          <div class="modal-body">
+       
+       <div class="alert alert-danger"><span class="glyphicon glyphicon-ok"></span>Record Has been deleted </div>
+      </div>
+        <div class="modal-footer ">
+        <button type="button" data-dismiss="modal" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span>OK</button>
+      </div>
+        </div>
+    <!-- /.modal-content --> 
+  </div>
+      <!-- /.modal-dialog --> 
+    </div>
+    
+    
+    <div class="modal fade" id="universityList" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">University List</h4>
+      </div>
+      <div class="modal-body">
+		  <ul id="universityListUL" class="list-group">
+		    <li class="list-group-item">First item</li>
+		    <li class="list-group-item">Second item</li>
+		    <li class="list-group-item">Third item</li>
+		  </ul>
+      </div>
+        <div class="modal-footer ">
+        <button type="button" data-dismiss="modal" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span>OK</button>
+      </div>
+        </div>
+    <!-- /.modal-content --> 
+  </div>
+      <!-- /.modal-dialog --> 
+    </div>
+    
+    <div class="modal fade" id="courseList" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">University Course List</h4>
+      </div>
+      <div class="modal-body">
+		  <ul id="courseListUL" class="list-group">
+		    <li class="list-group-item">First item</li>
+		    <li class="list-group-item">Second item</li>
+		    <li class="list-group-item">Third item</li>
+		  </ul>
+      </div>
+        <div class="modal-footer ">
+        <button type="button" data-dismiss="modal" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span>OK</button>
+      </div>
+        </div>
+    <!-- /.modal-content --> 
+  </div>
+      <!-- /.modal-dialog --> 
+    </div>
+    
+    <script>
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+
+    $(document).ready(function(){
+    	$("#universityTable #checkall").click(function () {
+    	        if ($("#mytable #checkall").is(':checked')) {
+    	            $("#mytable input[type=checkbox]").each(function () {
+    	                $(this).prop("checked", true);
+    	            });
+
+    	        } else {
+    	            $("#mytable input[type=checkbox]").each(function () {
+    	                $(this).prop("checked", false);
+    	            });
+    	        }
+    	    });
+    	    
+    	    $("[data-toggle=tooltip]").tooltip();
+    	});
+     
+    </script>     
+</body>
+</html> 
